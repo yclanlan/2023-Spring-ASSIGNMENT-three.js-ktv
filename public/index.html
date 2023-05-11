@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
+
+
+  <body>
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="./libraries/simplepeer.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script
+      async
+      src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"
+    ></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.148.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.148.0/examples/jsm/"
+        }
+      }
+    </script>
+    
+    <!-- <div id="selector">
+    <select>
+      <option>Choose a song</option>
+      <option>Dog</option>
+      <option>Cat</option>
+      <option>Hamster</option>
+      <option>Parrot</option>
+      <option>Spider</option>
+      <option>Goldfish</option>
+  </select>
+  </div> -->
+
+    <canvas id="canvas">
+    <script type="module" src="index.js"></script>
+    </canvas>
+    <video id="video" playsinline webkit-playsinline loop width="320" height="240" src="500.mp4" style="display: none;"></video>
+
+    <!-- <script type="module" src="fourfacesvideo.js"></script> -->
+    <!-- <script type="module" src="posteffect.js"></script> -->
+  </body>
+</html>
