@@ -201,7 +201,7 @@ export class MyScene {
       ////////////////// background //////////////////
 
       this.backgroundSceneGroup= new THREE.Group();
-      this.backgroundSceneTexture = new THREE.TextureLoader().load( "./karaoke.jpg" );
+      this.backgroundSceneTexture = new THREE.TextureLoader().load( "./sceneObject/karaoke.jpg" );
       this.backgroundSceneMaterial = new THREE.MeshStandardMaterial( {
         map: this.backgroundSceneTexture,         
         side: THREE.DoubleSide, 
@@ -264,7 +264,7 @@ export class MyScene {
 
 
       
-      this.gui.add(this.video,'volume',0,1,0.01).name('volume');      
+      // this.gui.add(this.video,'volume',0,1,0.01).name('volume');      
       this.gui.add(
         {currentSong:''},'currentSong',
         [ "500","jay","Adele","blackpink","sodagreen"]).setValue(" Change Song ").name('track').onChange((e)=>{
@@ -274,7 +274,7 @@ export class MyScene {
         // mySocket.emit("playSong", e + '.mp4');
         // console.log(this.gui.children[0]);
         
-        console.log(this.gui.children[1].object);
+        console.log(this.gui.children[0].object);
       })
 
       // this.gui.onChange( function(value ){
@@ -375,28 +375,61 @@ export class MyScene {
 
 
     let otherMat = new THREE.MeshPhongMaterial({ color: 0xffffff });
-    let head = new THREE.Mesh(
-      new THREE.BoxGeometry(0.5, 0.5, 0.5), 
-    [
-      otherMat,
-      otherMat,
-      otherMat,
-      otherMat,
-      otherMat,
-      otherMat,
-      // videoMaterial,
-    ]);
+
+    var group = new THREE.Group();
+    this.scene.add(group);
+
+    let loader4 = new GLTFLoader();
+    loader4.load( './sceneObject/micphone.glb',
+      ( object ) => {
+      
+      let head= object.scene;
+      head.traverse(function(child){
+        // if(child.isMesh){
+          console.log(child);
+
+          child.scale.set(15,15,15);
+          child.position.set(0,1,0);
+          child.castShadow=true;
+          child.receiveShadow = true;
+          child.userData.name = "mic";
+          // child.material.dispose();
+          // child.material = new THREE.MeshBasicMaterial({color:0xffffff});
+          // child.material.needsUpdate = true;
+          group.add(child);
+        // }
+      })
+      
+      
+  });
+
+  console.log(group);
+      
+
+
+
+    // let head = new THREE.Mesh(
+    //   new THREE.BoxGeometry(0.5, 0.5, 0.5), 
+    // [
+    //   otherMat,
+    //   otherMat,
+    //   otherMat,
+    //   otherMat,
+    //   otherMat,
+    //   otherMat,
+    //   // videoMaterial,
+    // ]);
 
   
     // set position of head before adding to parent object
-    head.position.set(0, 0, 0);
+    //head.position.set(0, 0, 0);
 
     // https://threejs.org/docs/index.html#api/en/objects/Group
-    var group = new THREE.Group();
-    group.add(head);
+    //var group = new THREE.Group();
+    // group.add(head);
 
     // add group to scene
-    this.scene.add(group);
+    //this.scene.add(group);
     this.avatars[id].group = group;
 
   }

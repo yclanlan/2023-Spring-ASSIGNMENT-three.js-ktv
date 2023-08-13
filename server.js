@@ -52,8 +52,10 @@ io.on("connection", (socket) => {
       name: songName,
       startTime: new Date().getTime()
     }
-    console.log(songName);
+   
+    if(songName !== " Change Song "){
     socket.broadcast.emit("sendCurrentSong",currentSong);
+  }
     // socket.emit("sendCurrentSong",currentSong);
   })
   // socket.emit("sendCurrentSong", currentSong);
